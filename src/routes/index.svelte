@@ -1,14 +1,11 @@
 <script lang="ts">
+    import { grid, stopPlaying, result } from '../store/store';
     import XO from '../components/xo.svelte';
+    import Result from '../components/result.svelte';
     import '../app.css';
 
     const player = 'o';
     const robot = 'x';
-
-    let stopPlaying = false;
-    let result: 'win' | 'lose' | null = null;
-
-    let grid = Array(9).fill(null);
     const combos = ['012', '345', '678', '036', '147', '258', '048', '246'];
 
     function wait(ms: number) {
@@ -17,11 +14,12 @@
 
     function handlePress(cell: number) {
         return async () => {
-            stopPlaying = true;
-            grid[cell] = player;
+            stopPlaying.set(true);
 
-            const mapPlayerCells = grid.map((c, i) => c === player ? i : null).filter((c) => c !== null) as number[];
-            const mapRobotCells = grid.map((c, i) => c === robot ? i : null).filter((c) => c !== null) as number[];
+            grid.set(cell, player)
+
+            const mapPlayerCells = $grid.map((c, i) => c === player ? i : null).filter((c) => c !== null) as number[];
+            const mapRobotCells = $grid.map((c, i) => c === robot ? i : null).filter((c) => c !== null) as number[];
 
             const mapGrid = Array.from(new Set([...mapPlayerCells, ...mapRobotCells]));
             const regPlayerRobotCells = new RegExp(`(${mapGrid.join('|')})`, 'g');
@@ -35,41 +33,52 @@
 
             const randomCell = Math.floor(Math.random() * (mapEmptyComboCells.length - 1) + 1);
 
+            const didPlayerWin = combos.some((combo) => (
+                combo.split('').every((c) => $grid[parseInt(c, 10)] === player)
+            ));
+
+            if (didPlayerWin) {
+                await wait(1000);
+                result.set('win');
+                stopPlaying.set(true);
+
+                return true;
+            }
+
             await wait(1000);
 
-            grid[mapEmptyComboCells[randomCell]] = robot;
+            grid.set(mapEmptyComboCells[randomCell], robot);
 
-            stopPlaying = false;
+            const didRobotWin = combos.some((combo) => (
+                combo.split('').every((c) => $grid[parseInt(c, 10)] === robot)
+            ));
+
+            if (didRobotWin) {
+                result.set('lose');
+                stopPlaying.set(true);
+
+                return true;
+            }
+
+            stopPlaying.set(false);
+
+            return false;
         }
-    }
-
-    function handleReset() {
-        grid = Array(9).fill(null);
     }
 </script>
 
-<div class="result">
-    <strong>
-        {#if result === 'win'}
-            لقد فزت
-        {:else if result === 'lose'}
-            لقد خسرت
-        {/if}
-    </strong>
-
-    <button type="result" on:click={handleReset}>محاولة أخرى</button>
-</div>
-
-<section>
-    {#each grid as cell, index}
-        <button class="cell" type="button" on:click={handlePress(index)} disabled={!!cell || stopPlaying}>
+<Result />
+<section class="grid {$result ? '__blur' : ''}">
+    {#each $grid as cell, index}
+        <button class="cell" type="button" on:click={handlePress(index)} disabled={!!cell || $stopPlaying}>
             <XO sign={cell || ''} />
         </button>
     {/each}
 </section>
 
 <style lang="scss">
-    section {
+    
+    .grid {
         display: grid; 
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: repeat(3, 1fr);
@@ -80,14 +89,15 @@
             ". . .";
         width: 75vh;
         height: 75vh;
-    }
 
-    .result {
-        display: none;
+        &.__blur {
+            filter: blur(3px);
+        }
     }
 
     .cell {
         border-bottom: 1px solid #333;
+        cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -96,7 +106,6 @@
         height: 100%;
         position: relative;
         overflow: hidden;
-        cursor: pointer;
 
         &:before {
             content: '';
