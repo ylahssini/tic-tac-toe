@@ -11,6 +11,7 @@ html, body {
     height: 100%;
     font-family: 'Cairo', sans-serif;
     font-size: 14px;
+    direction: rtl;
 }
 
 body {
@@ -43,7 +44,19 @@ ul, ol, li {
     margin: 0;
     list-style: none;
 }
+/* C S S   R E S E T */
 
-:root {
-    --cell-size: 400px;
+.btn {
+    border: 1px solid #333;
+    border-radius: 50em;
+    color: white;
+    cursor: pointer;
+    display: block;
+    font-size: 1.5rem;
+    padding: 2rem 4rem;
+    transition: border-color .2s ease-in-out;
+}
+
+.btn:hover {
+    border-color: white;
 }

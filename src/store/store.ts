@@ -13,6 +13,8 @@ function createGrid() {
     };
 }
 
-export const stopPlaying = writable(false);
-export const result = writable(null as 'win' | 'lose' | null);
+export const init = writable(true);
+export const level = writable('easy');
+export const stop = writable(false);
+export const result = writable(null as 'win' | 'lose' | 'draw' | null);
 export const grid = createGrid();
