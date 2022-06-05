@@ -152,7 +152,6 @@
 {/if}
 
 <style lang="scss">
-    
     .grid {
         display: grid; 
         direction: ltr;
