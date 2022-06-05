@@ -1,7 +1,7 @@
 <svelte:head>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200&family=Vibes&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200&family=Vibes&display=swap" rel="stylesheet" />
     <title>تيك تاك تو</title>
 </svelte:head>
 
