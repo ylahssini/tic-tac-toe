@@ -10,7 +10,7 @@ const config = {
 			assets: "docs"
 		}),
 		paths: {
-			// base: dev ? "'" : "/tic-tac-toe",
+			base: "/tic-tac-toe",
 		},
 		prerender: {
 			default: true,
