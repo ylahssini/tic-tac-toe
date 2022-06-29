@@ -2,7 +2,7 @@
 	"name": "tic-tac-toe",
 	"version": "0.0.1",
 	"author": "Youssef Lahssini",
-	"homepage": "https://ylahssini.vercel.app",
+	"homepage": "https://github.com/ylahssini/tic-tac-toe",
 	"scripts": {
 		"dev": "svelte-kit dev -- --open",
 		"build": "svelte-kit build",
