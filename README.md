@@ -1,5 +1,7 @@
 # Tic Tac Toe
+To see the demo, please visit: [https://ylahssini.github.io/tic-tac-toe/](https://ylahssini.github.io/tic-tac-toe/)
 
+## Made by Svelte
 Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
 
 ## Creating a project
