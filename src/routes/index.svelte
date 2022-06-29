@@ -166,7 +166,7 @@
         height: 75vh;
 
         &.__blur {
-            filter: blur(3px);
+            filter: blur(5px);
         }
     }
 

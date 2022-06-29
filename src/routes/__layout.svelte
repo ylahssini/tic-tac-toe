@@ -43,7 +43,7 @@
 
     span {
         color: #eee;
-        display: block;
+        display: inline-block;
         font-size: 1.1rem;
         font-weight: 400;
         margin: -1rem 0 0 -5rem;
