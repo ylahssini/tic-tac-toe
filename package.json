@@ -4,7 +4,7 @@
 	"author": "Youssef Lahssini",
 	"homepage": "https://github.com/ylahssini/tic-tac-toe",
 	"scripts": {
-		"dev": "svelte-kit dev -- --open",
+		"dev": "env-cmd svelte-kit dev -- --open",
 		"build": "svelte-kit build",
 		"package": "svelte-kit package",
 		"preview": "svelte-kit preview",
@@ -31,5 +31,8 @@
 		"svelte-check": "^2.2.6",
 		"typescript": "~4.6.2"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"env-cmd": "^10.1.0"
+	}
 }

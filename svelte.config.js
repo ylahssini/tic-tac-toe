@@ -10,7 +10,7 @@ const config = {
 			assets: "docs"
 		}),
 		paths: {
-			base: "/tic-tac-toe",
+			base: process.env.VITE_PUBLIC_ENV === "development" ? "" : "/tic-tac-toe",
 		},
 		prerender: {
 			default: true,
